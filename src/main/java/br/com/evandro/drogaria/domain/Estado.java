@@ -11,7 +11,7 @@ public class Estado extends GenericDomain {
 	@Column(length = 2, nullable = false)
 	private String sigla;
 
-	@Column(length = 2, nullable = false)
+	@Column(length = 50, nullable = false)
 	private String nome;
 
 	public String getSigla() {
