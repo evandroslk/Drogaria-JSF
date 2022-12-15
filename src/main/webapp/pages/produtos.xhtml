@@ -7,22 +7,28 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Estados</title>
+	<title>Produtos</title>
 </h:head>
 
 <h:body>
 	<h:form>
-		<p:panel header="Estados - Listagem">
+		<p:panel header="Produtos - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
 				paginator="true">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
 				</f:facet>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Descrição">
 				</p:column>
 
-				<p:column headerText="Sigla">
+				<p:column headerText="Quantidade">
+				</p:column>
+				
+				<p:column headerText="Preço">
+				</p:column>
+				
+				<p:column headerText="Fabricante">
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -32,15 +38,23 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Estados - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form>
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome:" />
+				<p:outputLabel value="Descrição:" />
 				<p:inputText maxlength="50" size="30" />
 
-				<p:outputLabel value="Sigla:" />
-				<p:inputText maxlength="2" size="10" />
+				<p:outputLabel value="Quantidade:" />
+				<p:inputText maxlength="5" size="10" />
+				
+				<p:outputLabel value="Preço:" />
+				<p:inputText maxlength="7" size="10" />
+				
+				<p:outputLabel value="Fabricante:" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Selecione um fabricante"/>
+				</p:selectOneMenu>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
