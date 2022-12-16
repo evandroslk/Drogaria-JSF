@@ -52,7 +52,7 @@ public class GenericDAO<E> {
 		em.close();
 	}
 
-	public void editar(E entidade) {
+	public void merge(E entidade) {
 		EntityManager em = JpaUtil.getEntityManager();
 		em.getTransaction().begin();
 		em.merge(entidade);

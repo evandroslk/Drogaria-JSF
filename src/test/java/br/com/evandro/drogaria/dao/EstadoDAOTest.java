@@ -68,7 +68,7 @@ public class EstadoDAOTest {
 
 			estado.setNome("Rio Grande do Norte");
 			estado.setSigla("RN");
-			estadoDAO.editar(estado);
+			estadoDAO.merge(estado);
 
 			System.out.println("Registro editado - Depois:");
 			System.out.println(estado.getCodigo() + " - " + estado.getSigla() + " - " + estado.getNome());
