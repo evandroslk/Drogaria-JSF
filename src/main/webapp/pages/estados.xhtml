@@ -21,7 +21,9 @@
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{estadoBean.novo}"
-						update=":formCadastro:painel"/>
+						update=":formCadastro:painel">
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Nome" sortBy="#{estado.nome}" filterBy="#{estado.nome}">
