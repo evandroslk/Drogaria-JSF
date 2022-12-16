@@ -69,7 +69,10 @@ public class EstadoBean implements Serializable {
 			e.printStackTrace();
 		}
 		
-		
+	}
+
+	public void editar(ActionEvent evento) {
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 	}
 
 	public Estado getEstado() {
