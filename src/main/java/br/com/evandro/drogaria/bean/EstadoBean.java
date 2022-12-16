@@ -31,7 +31,7 @@ public class EstadoBean implements Serializable {
 	public void listar() {
 		try {
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar os estados");
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class EstadoBean implements Serializable {
 			estadoDAO.merge(estado);
 
 			novo();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 
 			Messages.addGlobalInfo("Estado salvo com sucesso");
 		} catch (RuntimeException e) {
@@ -61,7 +61,7 @@ public class EstadoBean implements Serializable {
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estadoDAO.excluir(estado);
 
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 
 			Messages.addGlobalInfo("Estado removido com sucesso");
 		} catch (RuntimeException e) {

@@ -1,9 +1,7 @@
 package br.com.evandro.drogaria.bean;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -33,7 +31,7 @@ public class CidadeBean implements Serializable {
 	public void listar() {
 		try {
 			CidadeDAO cidadeDAO = new CidadeDAO();
-			cidades = cidadeDAO.listar();
+			cidades = cidadeDAO.listar("nome");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar as cidades");
 			e.printStackTrace();
@@ -45,7 +43,7 @@ public class CidadeBean implements Serializable {
 			cidade = new Cidade();
 
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar().stream().sorted(Comparator.comparing(Estado::getNome)).collect(Collectors.toList());
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao gerar uma nova cidade");
 		}
@@ -60,9 +58,9 @@ public class CidadeBean implements Serializable {
 			cidade = new Cidade();
 
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 
-			cidades = cidadeDAO.listar();
+			cidades = cidadeDAO.listar("nome");
 
 			Messages.addGlobalInfo("Cidade salva com sucesso");
 
@@ -79,7 +77,7 @@ public class CidadeBean implements Serializable {
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidadeDAO.excluir(cidade);
 
-			cidades = cidadeDAO.listar();
+			cidades = cidadeDAO.listar("nome");
 
 			Messages.addGlobalInfo("Cidade removida com sucesso");
 		} catch (RuntimeException e) {
@@ -94,7 +92,7 @@ public class CidadeBean implements Serializable {
 			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
 
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma cidade");
 			e.printStackTrace();

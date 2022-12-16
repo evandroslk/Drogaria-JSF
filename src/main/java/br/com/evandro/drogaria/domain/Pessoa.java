@@ -2,6 +2,8 @@ package br.com.evandro.drogaria.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pessoa extends GenericDomain {
@@ -14,7 +16,7 @@ public class Pessoa extends GenericDomain {
 	@Column(length = 14, nullable = false)
 	private String cpf;
 
-	@Column(length = 12, nullable = false)
+	@Column(length = 15, nullable = false)
 	private String rg;
 
 	@Column(length = 100, nullable = false)
@@ -40,6 +42,10 @@ public class Pessoa extends GenericDomain {
 
 	@Column(length = 100, nullable = false)
 	private String email;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Cidade cidade;
 
 	public String getNome() {
 		return nome;
@@ -127,6 +133,14 @@ public class Pessoa extends GenericDomain {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 }

@@ -4,13 +4,15 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import br.com.evandro.drogaria.util.JpaUtil;
 
 public class GenericDAO<E> {
 
-	private Class<E> classe;
+	protected Class<E> classe;
 
 	@SuppressWarnings("unchecked")
 	public GenericDAO() {
@@ -35,6 +37,17 @@ public class GenericDAO<E> {
 		List<E> lista = em.createQuery(select).getResultList();
 		em.close();
 		return lista;
+	}
+
+	public List<E> listar(String campoOrdenacao) {
+		EntityManager em = JpaUtil.getEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<E> query = cb.createQuery(classe);
+		Root<E> root = query.from(classe);
+		query.orderBy(cb.asc(root.get(campoOrdenacao)));
+		List<E> resultado = em.createQuery(query).getResultList();
+		em.close();
+		return resultado;
 	}
 
 	public E buscar(Long codigo) {

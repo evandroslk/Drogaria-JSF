@@ -30,7 +30,7 @@ public class ProdutoBean implements Serializable {
 	public void listar() {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar();
+			produtos = produtoDAO.listar("descricao");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os produtos");
 			e.printStackTrace();
@@ -42,7 +42,7 @@ public class ProdutoBean implements Serializable {
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricantes = fabricanteDAO.listar();
+			fabricantes = fabricanteDAO.listar("descricao");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar um novo produto");
 		}
@@ -53,7 +53,7 @@ public class ProdutoBean implements Serializable {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricantes = fabricanteDAO.listar();
+			fabricantes = fabricanteDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um produto");
 			erro.printStackTrace();
@@ -68,9 +68,9 @@ public class ProdutoBean implements Serializable {
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricantes = fabricanteDAO.listar();
+			fabricantes = fabricanteDAO.listar("descricao");
 
-			produtos = produtoDAO.listar();
+			produtos = produtoDAO.listar("descricao");
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
 		} catch (RuntimeException erro) {
@@ -86,7 +86,7 @@ public class ProdutoBean implements Serializable {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 
-			produtos = produtoDAO.listar();
+			produtos = produtoDAO.listar("descricao");
 
 			Messages.addGlobalInfo("Produto removido com sucesso");
 		} catch (RuntimeException erro) {
