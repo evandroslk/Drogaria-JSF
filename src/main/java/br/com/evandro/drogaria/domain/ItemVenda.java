@@ -24,7 +24,7 @@ public class ItemVenda extends GenericDomain {
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Funcionario funcionario;
+	private Venda venda;
 
 	public Short getQuantidade() {
 		return quantidade;
@@ -50,12 +50,12 @@ public class ItemVenda extends GenericDomain {
 		this.produto = produto;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
+	public Venda getVenda() {
+		return venda;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 }
