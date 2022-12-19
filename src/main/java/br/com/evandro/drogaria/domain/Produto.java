@@ -25,6 +25,8 @@ public class Produto extends GenericDomain {
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
 
+	private String caminho;
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -55,6 +57,14 @@ public class Produto extends GenericDomain {
 
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
+	}
+
+	public String getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
 	}
 
 }

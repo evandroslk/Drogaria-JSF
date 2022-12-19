@@ -1,6 +1,10 @@
 package br.com.evandro.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +13,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.evandro.drogaria.dao.FabricanteDAO;
 import br.com.evandro.drogaria.dao.ProdutoDAO;
@@ -92,6 +98,20 @@ public class ProdutoBean implements Serializable {
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o produto");
 			erro.printStackTrace();
+		}
+	}
+
+	public void upload(FileUploadEvent evento) {
+		try {
+			UploadedFile arquivoUpload = evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+
+			Messages.addGlobalInfo("Upload realizado com sucesso");
+		} catch (IOException e) {
+			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de arquivo");
+			e.printStackTrace();
 		}
 	}
 

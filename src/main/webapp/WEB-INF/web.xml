@@ -10,6 +10,13 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    
+    <!-- Tema do PrimeFaces -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>afternoon</param-value>
+    </context-param>
 
     <!-- Configuração do JSF -->
     <servlet>
