@@ -5,14 +5,18 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -20,6 +24,11 @@ import br.com.evandro.drogaria.dao.FabricanteDAO;
 import br.com.evandro.drogaria.dao.ProdutoDAO;
 import br.com.evandro.drogaria.domain.Fabricante;
 import br.com.evandro.drogaria.domain.Produto;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @ManagedBean
 @ViewScoped
@@ -111,6 +120,25 @@ public class ProdutoBean implements Serializable {
 			Messages.addGlobalInfo("Upload realizado com sucesso");
 		} catch (IOException e) {
 			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de arquivo");
+			e.printStackTrace();
+		}
+	}
+
+	public void imprimir() {
+		try {
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
+			Map<String, Object> filters = tabela.getFilters();
+
+			String caminho = Faces.getRealPath("/reports/produtos.jasper");
+			
+			Map<String, Object> parametros = new HashMap<>();
+
+			JRBeanCollectionDataSource dataSource =
+					new JRBeanCollectionDataSource(filters.isEmpty() ? getProdutos() : tabela.getFilteredValue());
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, dataSource);
+			JasperPrintManager.printReport(relatorio, false);
+		} catch (JRException e) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			e.printStackTrace();
 		}
 	}
