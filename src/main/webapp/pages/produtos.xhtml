@@ -24,7 +24,8 @@
 						 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 					</p:commandButton>
 					
-					<p:commandButton icon="ui-icon-print" actionListener="#{produtoBean.imprimir}"/>
+					<p:commandButton icon="ui-icon-print" actionListener="#{produtoBean.imprimir}"
+						update=":mensagem"/>
 				</f:facet>
 
 				<p:column headerText="Descrição" filterBy="#{produto.descricao}"

@@ -24,11 +24,11 @@ import br.com.evandro.drogaria.dao.FabricanteDAO;
 import br.com.evandro.drogaria.dao.ProdutoDAO;
 import br.com.evandro.drogaria.domain.Fabricante;
 import br.com.evandro.drogaria.domain.Produto;
+import br.com.evandro.drogaria.util.JpaUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @ManagedBean
 @ViewScoped
@@ -126,17 +126,32 @@ public class ProdutoBean implements Serializable {
 
 	public void imprimir() {
 		try {
+
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
-			Map<String, Object> filters = tabela.getFilters();
+
+			Map<String, Object> filtros = tabela.getFilters();
+			String proDescricao = (String) filtros.get("descricao");
+			String fabDescricao = (String) filtros.get("fabricante.descricao");
 
 			String caminho = Faces.getRealPath("/reports/produtos.jasper");
-			
+
 			Map<String, Object> parametros = new HashMap<>();
 
-			JRBeanCollectionDataSource dataSource =
-					new JRBeanCollectionDataSource(filters.isEmpty() ? getProdutos() : tabela.getFilteredValue());
-			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, dataSource);
-			JasperPrintManager.printReport(relatorio, false);
+			if (proDescricao == null) {
+				parametros.put("PRODUTO_DESCRICAO", "%%");
+			} else {
+				parametros.put("PRODUTO_DESCRICAO", proDescricao);
+			}
+
+			if (fabDescricao == null) {
+				parametros.put("FABRICANTE_DESCRICAO", "%%");
+			} else {
+				parametros.put("FABRICANTE_DESCRICAO", fabDescricao);
+			}
+
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, JpaUtil.getConnection());
+
+			JasperPrintManager.printReport(relatorio, true);
 		} catch (JRException e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			e.printStackTrace();
