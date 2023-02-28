@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.omnifaces.util.Faces;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -35,7 +36,7 @@ public class ImagemBean implements Serializable {
 
 	public StreamedContent getFoto() throws IOException {
 		if (caminho == null || caminho.isEmpty()) {
-			Path path = Paths.get("C:/Evandro/uploads/branco.jpeg");
+			Path path = Paths.get(Faces.getRealPath("/resources/images/branco.jpeg"));
 			InputStream stream = Files.newInputStream(path);
 			foto = new DefaultStreamedContent(stream);
 		} else {

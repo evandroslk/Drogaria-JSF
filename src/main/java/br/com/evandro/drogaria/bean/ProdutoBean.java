@@ -1,5 +1,6 @@
 package br.com.evandro.drogaria.bean;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -18,6 +19,8 @@ import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.evandro.drogaria.dao.FabricanteDAO;
@@ -26,9 +29,7 @@ import br.com.evandro.drogaria.domain.Fabricante;
 import br.com.evandro.drogaria.domain.Produto;
 import br.com.evandro.drogaria.util.JpaUtil;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 @ManagedBean
 @ViewScoped
@@ -124,7 +125,10 @@ public class ProdutoBean implements Serializable {
 		}
 	}
 
-	public void imprimir() {
+	public StreamedContent imprimir() {
+
+		byte[] pdf = null;
+
 		try {
 
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
@@ -137,25 +141,32 @@ public class ProdutoBean implements Serializable {
 
 			Map<String, Object> parametros = new HashMap<>();
 
+			parametros.put("CAMINHO_IMAGEM", Faces.getRealPath("/resources/images/banner.jpg"));
 			if (proDescricao == null) {
 				parametros.put("PRODUTO_DESCRICAO", "%%");
 			} else {
-				parametros.put("PRODUTO_DESCRICAO", proDescricao);
+				parametros.put("PRODUTO_DESCRICAO", "%" + proDescricao + "%");
 			}
 
 			if (fabDescricao == null) {
 				parametros.put("FABRICANTE_DESCRICAO", "%%");
 			} else {
-				parametros.put("FABRICANTE_DESCRICAO", fabDescricao);
+				parametros.put("FABRICANTE_DESCRICAO", "%" + fabDescricao + "%");
 			}
 
-			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, JpaUtil.getConnection());
+			pdf = JasperRunManager.runReportToPdf(caminho, parametros, JpaUtil.getConnection());
 
-			JasperPrintManager.printReport(relatorio, true);
+
 		} catch (JRException e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			e.printStackTrace();
 		}
+
+		DefaultStreamedContent content = new DefaultStreamedContent();
+		content.setName("relatorio_produtos.pdf");
+		content.setContentType("image/pdf");
+		content.setStream(new ByteArrayInputStream(pdf));
+		return content;
 	}
 
 	public List<Fabricante> getFabricantes() {

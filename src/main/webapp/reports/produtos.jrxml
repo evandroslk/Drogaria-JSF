@@ -5,6 +5,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria JSF - Mysql"/>
 	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
 	<parameter name="FABRICANTE_DESCRICAO" class="java.lang.String"/>
+	<parameter name="CAMINHO_IMAGEM" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT drogaria.`Produto`.descricao AS pdescricao,
 	drogaria.`Produto`.preco,
@@ -47,7 +48,7 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 		<band height="79" splitType="Stretch">
 			<image hAlign="Center">
 				<reportElement x="-11" y="0" width="571" height="79" uuid="8c73dc25-3fa9-4eaa-a11c-fa4759f91bd7"/>
-				<imageExpression><![CDATA["/home/evandro/Imagens/banner.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{CAMINHO_IMAGEM}]]></imageExpression>
 			</image>
 		</band>
 	</title>

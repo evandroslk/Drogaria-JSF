@@ -24,8 +24,9 @@
 						 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 					</p:commandButton>
 					
-					<p:commandButton icon="ui-icon-print" actionListener="#{produtoBean.imprimir}"
-						update=":mensagem"/>
+					<p:commandButton icon="ui-icon-print" update=":mensagem" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
+						<p:fileDownload value="#{produtoBean.imprimir()}" />
+					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
