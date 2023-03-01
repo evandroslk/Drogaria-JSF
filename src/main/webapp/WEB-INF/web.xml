@@ -4,6 +4,11 @@
 
     <!-- Nome da Aplicação -->
     <display-name>Drogaria</display-name>
+    
+    <!-- Página principal da aplicação -->
+    <welcome-file-list>
+    	<welcome-file>pages/principal.xhtml</welcome-file>
+    </welcome-file-list>
 
     <!-- Estágio do Projeto -->
     <context-param>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.com.evandro.drogaria.domain.ItemVenda;
+import br.com.evandro.drogaria.domain.Produto;
 import br.com.evandro.drogaria.domain.Venda;
 import br.com.evandro.drogaria.util.JpaUtil;
 
@@ -22,6 +23,16 @@ public class VendaDAO extends GenericDAO<Venda> {
 				itemVenda.setVenda(venda);
 				
 				em.persist(itemVenda);
+				
+				Produto produto = itemVenda.getProduto();
+				int quantidade = produto.getQuantidade() - itemVenda.getQuantidade();
+				if (quantidade >= 0) {
+					produto.setQuantidade(new Short(quantidade + ""));
+					em.merge(produto);
+				} else {
+					throw new RuntimeException("Quantidade insuficiente em estoque");
+				}
+				
 			}
 			
 			em.getTransaction().commit();
