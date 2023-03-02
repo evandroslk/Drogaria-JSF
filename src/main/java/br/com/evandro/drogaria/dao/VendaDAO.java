@@ -37,7 +37,10 @@ public class VendaDAO extends GenericDAO<Venda> {
 			
 			em.getTransaction().commit();
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			if (em.getTransaction() != null) {
+				em.getTransaction().rollback();
+			}
+			throw e;
 		}
 	}
 
