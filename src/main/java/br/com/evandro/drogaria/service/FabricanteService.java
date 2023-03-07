@@ -60,14 +60,13 @@ public class FabricanteService {
 	}
 
 	@DELETE
-	public String excluir(String json) {
-		Gson gson = new Gson();
-		Fabricante fabricante = gson.fromJson(json, Fabricante.class);
-
+	@Path("{codigo}")
+	public String excluir(@PathParam("codigo") Long codigo) {
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
-		fabricante = fabricanteDAO.buscar(fabricante.getCodigo());
+		Fabricante fabricante = fabricanteDAO.buscar(codigo);
 		fabricanteDAO.excluir(fabricante);
-
+		
+		Gson gson = new Gson();
 		return gson.toJson(fabricante);
 	}
 

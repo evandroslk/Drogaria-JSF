@@ -17,7 +17,6 @@ import org.omnifaces.util.Messages;
 
 import com.google.gson.Gson;
 
-import br.com.evandro.drogaria.dao.FabricanteDAO;
 import br.com.evandro.drogaria.domain.Fabricante;
 
 @ManagedBean
@@ -77,10 +76,16 @@ public class FabricanteBean implements Serializable {
 		try {
 			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
 
-			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricanteDAO.excluir(fabricante);
+			Client cliente = ClientBuilder.newClient();
+			WebTarget caminho = cliente.target("http://127.0.0.1:8080/Drogaria/rest/fabricante");
 
-			fabricantes = fabricanteDAO.listar();
+			caminho.path("{codigo}").resolveTemplate("codigo", fabricante.getCodigo()).request().delete();
+
+			Gson gson = new Gson();
+
+			String json = caminho.request().get(String.class);
+			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class);
+			fabricantes = Arrays.asList(vetor);
 
 			Messages.addGlobalInfo("Fabricante removido com sucesso");
 		} catch (RuntimeException erro) {

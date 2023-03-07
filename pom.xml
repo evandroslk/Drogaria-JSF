@@ -120,6 +120,14 @@
             <artifactId>jasperreports</artifactId>
             <version>6.20.0</version>
         </dependency>
+        
+        <!--Apache Shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+        
     </dependencies>
 
 </project>

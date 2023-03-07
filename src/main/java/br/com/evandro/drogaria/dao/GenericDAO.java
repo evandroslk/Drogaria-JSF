@@ -65,12 +65,13 @@ public class GenericDAO<E> {
 		em.close();
 	}
 
-	public void merge(E entidade) {
+	public E merge(E entidade) {
 		EntityManager em = JpaUtil.getEntityManager();
 		em.getTransaction().begin();
-		em.merge(entidade);
+		E result = em.merge(entidade);
 		em.getTransaction().commit();
 		em.close();
+		return result;
 	}
 
 }
