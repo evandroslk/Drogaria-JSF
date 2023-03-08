@@ -84,7 +84,7 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Senha:" />
-				<p:password maxlength="8" size="10" value="#{usuarioBean.usuario.senha}"/>
+				<p:password maxlength="8" size="10" value="#{usuarioBean.usuario.senhaSemCriptografia}"/>
 
 				<p:outputLabel value="Tipo:" />
 				<p:selectOneRadio value="#{usuarioBean.usuario.tipo}">

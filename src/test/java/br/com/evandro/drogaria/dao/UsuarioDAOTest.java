@@ -31,7 +31,7 @@ public class UsuarioDAOTest {
 	@Test
 	public void autenticar() {
 		String cpf = "222.222.222-22";
-		String senha = "12345abcd";
+		String senha = "12345abc";
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.autenticar(cpf, senha);

@@ -1,6 +1,7 @@
 package br.com.evandro.drogaria.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -21,7 +22,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 			SimpleHash hash = new SimpleHash("md5", senha);
 			query.setParameter("senha", hash.toHex());
 			return query.getSingleResult();
-		} catch (RuntimeException e) {
+		} catch (NoResultException e) {
 			throw e;
 		}
 	}
