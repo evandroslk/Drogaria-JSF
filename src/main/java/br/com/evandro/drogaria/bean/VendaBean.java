@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -175,6 +174,14 @@ public class VendaBean implements Serializable {
 
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
+	}
+	
+	public void atualizarPrecoParcial() {
+		for (ItemVenda itemVenda : itensVenda) {
+			itemVenda.setPrecoParcial(itemVenda.getProduto().getPreco()
+					.multiply(new BigDecimal(itemVenda.getQuantidade())));
+		}
+		this.calcular();
 	}
 
 }
