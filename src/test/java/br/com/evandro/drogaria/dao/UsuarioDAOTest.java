@@ -1,19 +1,18 @@
 package br.com.evandro.drogaria.dao;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.evandro.drogaria.domain.Pessoa;
 import br.com.evandro.drogaria.domain.Usuario;
+import br.com.evandro.drogaria.enums.TipoUsuario;
 
 public class UsuarioDAOTest {
 	
 	@Test
-	@Ignore
 	public void salvar() {
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(1L);
+		Pessoa pessoa = pessoaDAO.buscar(2L);
 		
 		Usuario usuario = new Usuario();
 		usuario.setAtivo(true);
@@ -22,7 +21,7 @@ public class UsuarioDAOTest {
 		
 		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
 		usuario.setSenha(hash.toHex());
-		usuario.setTipo('A');
+		usuario.setTipoUsuario(TipoUsuario.BALCONISTA);
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.salvar(usuario);

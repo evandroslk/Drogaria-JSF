@@ -29,7 +29,8 @@
 							<p:menuitem value="Sair"/>
 						</p:submenu>
 						
-						<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}" >
+						<p:submenu label="Cadastros" 
+							rendered="#{autenticacaoBean.temPermissoes(['ADMINISTRADOR', 'GERENTE'])}" >
 							<p:menuitem value="Estado" url="/pages/estados.xhtml"/>
 							<p:menuitem value="Cidade" url="/pages/cidades.xhtml"/>
 							<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml"/>

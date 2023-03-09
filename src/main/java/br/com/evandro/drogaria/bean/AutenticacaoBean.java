@@ -61,10 +61,10 @@ public class AutenticacaoBean implements Serializable {
 			Messages.addGlobalError(e.getMessage());
 		}
 	}
-	
+
 	public boolean temPermissoes(List<String> permissoes) {
 		for (String permissao : permissoes) {
-			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
+			if (usuarioLogado.getTipoUsuario().toString().equals(permissao)) {
 				return true;
 			}
 		}

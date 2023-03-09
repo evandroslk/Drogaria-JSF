@@ -2,9 +2,13 @@ package br.com.evandro.drogaria.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import br.com.evandro.drogaria.enums.TipoUsuario;
 
 @Entity
 public class Usuario extends GenericDomain {
@@ -18,7 +22,8 @@ public class Usuario extends GenericDomain {
 	private String senhaSemCriptografia;
 
 	@Column(nullable = false)
-	private Character tipo;
+	@Enumerated(EnumType.STRING)
+	private TipoUsuario tipoUsuario;
 
 	@Column(nullable = false)
 	private Boolean ativo;
@@ -33,14 +38,6 @@ public class Usuario extends GenericDomain {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public Character getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Character tipo) {
-		this.tipo = tipo;
 	}
 
 	public Boolean getAtivo() {
@@ -67,19 +64,12 @@ public class Usuario extends GenericDomain {
 		this.senhaSemCriptografia = senhaSemCriptografia;
 	}
 
-	@Transient
-	public String getTipoFormatado() {
-		String tipoFormatado = null;
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
 
-		if (tipo == 'A') {
-			tipoFormatado = "Administrador";
-		} else if (tipo == 'B') {
-			tipoFormatado = "Balconista";
-		} else if (tipo == 'G') {
-			tipoFormatado = "Gerente";
-		}
-
-		return tipoFormatado;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	@Transient

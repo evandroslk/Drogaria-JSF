@@ -33,8 +33,8 @@
 					<h:outputText value="#{usuario.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Tipo" sortBy="#{usuario.tipoFormatado}">
-					<h:outputText value="#{usuario.tipoFormatado}" />
+				<p:column headerText="Tipo" sortBy="#{usuario.tipoUsuario.toString()}">
+					<h:outputText value="#{usuario.tipoUsuario.toString()}" />
 				</p:column>
 
 				<p:column headerText="Ativo" sortBy="#{usuario.ativoFormatado}">
@@ -87,10 +87,10 @@
 				<p:password maxlength="8" size="10" value="#{usuarioBean.usuario.senhaSemCriptografia}"/>
 
 				<p:outputLabel value="Tipo:" />
-				<p:selectOneRadio value="#{usuarioBean.usuario.tipo}">
-					<f:selectItem itemValue="A" itemLabel="Administrador" />
-					<f:selectItem itemValue="G" itemLabel="Gerente" />
-					<f:selectItem itemValue="B" itemLabel="Balconista" />
+				<p:selectOneRadio value="#{usuarioBean.usuario.tipoUsuario}">
+					<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+					<f:selectItem itemValue="GERENTE" itemLabel="Gerente" />
+					<f:selectItem itemValue="BALCONISTA" itemLabel="Balconista" />
 				</p:selectOneRadio>
 
 				<p:outputLabel value="Ativo:" />
