@@ -2,6 +2,7 @@ package br.com.evandro.drogaria.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -59,6 +60,15 @@ public class AutenticacaoBean implements Serializable {
 			e.printStackTrace();
 			Messages.addGlobalError(e.getMessage());
 		}
+	}
+	
+	public boolean temPermissoes(List<String> permissoes) {
+		for (String permissao : permissoes) {
+			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
