@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+<ui:define name="metadata">
+	<f:metadata>
+		<f:viewAction action="#{vendaBean.novo}"/>
+	</f:metadata>
+</ui:define>
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Vendas</title>
 </h:head>
 
-<h:body>
-	<p:growl id="mensagem" />
-
+<ui:define name="conteudo">
 	<h:form id="formulario">
 		<p:panel header="Produtos">
 			<p:dataTable id="tabelaProduto" emptyMessage="Nenhum registro encontrado"
@@ -140,7 +146,6 @@
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
+</ui:define>
 
-</h:body>
-
-</html>
+</ui:composition>

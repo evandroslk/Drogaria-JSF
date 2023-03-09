@@ -35,8 +35,8 @@ public class VendaBean implements Serializable {
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
+	private List<Venda> vendas;
 
-	@PostConstruct
 	public void novo() {
 		try {
 			venda = new Venda();
@@ -51,6 +51,11 @@ public class VendaBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar a tela de vendas");
 			e.printStackTrace();
 		}
+	}
+	
+	public void listarVendas() {
+		VendaDAO vendaDAO = new VendaDAO();
+		vendas = vendaDAO.listar();
 	}
 
 	public void adicionar(ActionEvent evento) {
@@ -97,7 +102,7 @@ public class VendaBean implements Serializable {
 
 	public void calcular() {
 		venda.setPrecoTotal(new BigDecimal("0.00"));
-		
+
 		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			ItemVenda itemVenda = itensVenda.get(posicao);
 			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
@@ -162,6 +167,14 @@ public class VendaBean implements Serializable {
 
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 }
