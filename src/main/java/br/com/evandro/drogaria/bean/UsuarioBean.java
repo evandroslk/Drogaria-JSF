@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.evandro.drogaria.dao.PessoaDAO;
@@ -64,7 +65,8 @@ public class UsuarioBean implements Serializable {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
 
-			Messages.addGlobalInfo("Usuário salvo com sucesso");
+			Messages.addGlobalInfo(Faces.getResourceBundle("msg")
+					.getString("usuarioSalvo"));
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o usuário");
 			erro.printStackTrace();

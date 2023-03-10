@@ -7,5 +7,15 @@
 	<lifecycle>
 		<phase-listener>br.com.evandro.drogaria.util.AutenticacaoListener</phase-listener>
 	</lifecycle>
+	
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>mensagens</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application>
 
 </faces-config>

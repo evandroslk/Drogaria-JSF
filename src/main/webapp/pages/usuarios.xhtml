@@ -11,19 +11,19 @@
 <h:body>
 	<p:growl id="mensagem" />
 	<h:form id="formListagem">
-		<p:panel header="Usuários - Listagem">
+		<p:panel header="#{msg.cabecalhoPainel}">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
 				rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+					<p:commandButton value="#{msg.botaoNovo}" oncomplete="PF('dialogo').show();"
 						actionListener="#{usuarioBean.novo}"
 						update=":mensagem :formCadastro:painel">
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy="#{usuario.pessoa.nome}"
+				<p:column headerText="#{msg.cabecalhoNome}" sortBy="#{usuario.pessoa.nome}"
 					filterBy="#{usuario.pessoa.nome}">
 					<h:outputText value="#{usuario.pessoa.nome}" />
 				</p:column>
